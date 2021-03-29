@@ -12,10 +12,16 @@ public final class GridReference {
     @Getter
     private final String reference;
 
-    public GridReference(final String reference) {
-        Assert.isTrue(REGEX.matches(reference),
+    private GridReference(final String reference) {
+        Assert.hasText(reference, "'reference' must not be 'null' or empty");
+        Assert.isTrue(reference.matches(REGEX),
             "The provided reference: '" + reference + "' is not recognised as a valid grid reference");
 
         this.reference = reference;
+    }
+
+
+    public static GridReference of(final String reference) {
+        return new GridReference(reference);
     }
 }
