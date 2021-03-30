@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -75,15 +76,15 @@ class MunroQuerySpecificationMapper {
     }
 
     /**
-     * Generates a {@link List} of {@link RecordSorter RecordSorters} (for {@link Munro Munroes})
+     * Generates a {@link List} of {@link Comparator Comparators} (for {@link Munro Munroes})
      * as detailed by the query-parameter(s) for {@code sort-ing} in the request.
      *
      * @param sorterStrings the {@code sort} query-parameter(s) from the request
      *
-     * @return a {@code List} of the requested {@code RecordSorters}.  The order of these will
+     * @return a {@code List} of the requested {@code Comparators}.  The order of these will
      *         match the order they were specified in the query-parameters.
      */
-    private List<RecordSorter<Munro>> buildSorters(final List<String> sorterStrings) {
+    private List<Comparator<Munro>> buildSorters(final List<String> sorterStrings) {
         if (sorterStrings == null) {
             // No sorting required.
             return Collections.emptyList();
@@ -102,5 +103,4 @@ class MunroQuerySpecificationMapper {
 
         return Collections.unmodifiableList(sorters);
     }
-
 }

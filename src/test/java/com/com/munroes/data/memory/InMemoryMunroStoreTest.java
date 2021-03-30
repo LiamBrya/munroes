@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.swing.SortOrder;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @SpringBootTest
@@ -107,7 +108,7 @@ public class InMemoryMunroStoreTest {
         final RecordSorter<Munro> heightSorter = new RecordSorter<>(Munro::getHeight,
                                                                     SortOrder.ASCENDING);
 
-        final List<RecordSorter<Munro>> sorters =
+        final List<Comparator<Munro>> sorters =
                 Arrays.asList(designationSorter, heightSorter);
 
         final List<Munro> munroes = this.store.query(

@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,25 +65,30 @@ public class InMemoryMunroStore implements MunroStore {
     private Stream<Munro> buildQueryStream(final MunroQuerySpecification query) {
         Stream<Munro> stream = munroes.stream();
 
-        stream = stream.filter(munro -> query.getTypes().contains(munro.getDesignation()));
+        stream = applyIfNotNull(query.getTypes(), stream,
+                       (i, s) -> s.filter(m -> i.contains(m.getDesignation())));
 
-        if (query.getMaxHeight() != null) {
-            stream = stream.filter(munro -> munro.getHeight() <= query.getMaxHeight());
-        }
-        if (query.getMinHeight() != null) {
-            stream = stream.filter(munro -> munro.getHeight() >= query.getMinHeight());
-        }
+        stream = applyIfNotNull(query.getMaxHeight(), stream,
+                                (i, s) -> s.filter(m -> m.getHeight() <= i));
+        stream = applyIfNotNull(query.getMinHeight(), stream,
+                                (i, s) -> s.filter(m -> m.getHeight() >= i));
 
-        for (int i = query.getSorters().size() - 1; i >= 0; i--) {
-            stream = stream.sorted(query.getSorters().get(i));
-        }
+        stream = applyIfNotNull(query.getSorter(), stream, (i, s) -> s.sorted(i));
 
         // Ensure that 'limit' is observed last.  Otherwise fewer results than expected may get
         // returned after other restrictions are applied.
-        if (query.getLimit() != null) {
-            stream = stream.limit(query.getLimit());
-        }
+        stream = applyIfNotNull(query.getLimit(), stream, (i, s) -> s.limit(i));
 
+        return stream;
+    }
+
+
+    private static <I, T> Stream<T> applyIfNotNull(final I item,
+                                                   final Stream<T> stream,
+                                                   final BiFunction<I, Stream<T>, Stream<T>> operator) {
+        if (item != null) {
+            return operator.apply(item, stream);
+        }
         return stream;
     }
 }

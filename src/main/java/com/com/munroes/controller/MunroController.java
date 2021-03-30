@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public class MunroController {
 
 
     @GetMapping
-    public List<MunroView> queryMunroes(final @ModelAttribute MunroQuerySpecification query) {
+    public List<MunroView> queryMunroes(final @Valid @ModelAttribute MunroQuerySpecification query) {
 
         final List<MunroView> views =
                 this.service.query(query).stream().map(MunroView::new).collect(Collectors.toList());
