@@ -1,8 +1,8 @@
 package com.com.munroes.controller;
 
 import com.com.munroes.data.query.MunroQuerySpecification;
-import com.com.munroes.data.query.RecordSortParser;
 import com.com.munroes.data.query.RecordSorter;
+import com.com.munroes.data.query.RecordSorterParser;
 import com.com.munroes.model.Designation;
 import com.com.munroes.model.Munro;
 import org.springframework.util.Assert;
@@ -24,9 +24,9 @@ import java.util.Set;
 @ControllerAdvice
 class MunroQuerySpecificationMapper {
 
-    private final RecordSortParser parser;
+    private final RecordSorterParser parser;
 
-    MunroQuerySpecificationMapper(final RecordSortParser parser) {
+    MunroQuerySpecificationMapper(final RecordSorterParser parser) {
         Assert.notNull(parser, "'parser' must not be 'null' or empty");
 
         this.parser = parser;
@@ -69,7 +69,7 @@ class MunroQuerySpecificationMapper {
 
         final Set<Designation> allowedTypes = new HashSet<>(types.size());
         for (final String type : types) {
-            allowedTypes.add(Designation.valueOf(type.toUpperCase()));
+            allowedTypes.add(Designation.from(type));
         }
 
         // Additional logic could be placed here for if all types were provided, to avoid

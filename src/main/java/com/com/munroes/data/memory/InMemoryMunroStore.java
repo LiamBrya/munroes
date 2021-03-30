@@ -52,12 +52,10 @@ public class InMemoryMunroStore implements MunroStore {
      * Builds a {@link Stream} of {@link Munro Munroes} using the {@link #munroes} stored in memory,
      * and the provided {@link MunroQuerySpecification query} for specifying restrictions on the
      * elements returned.
-     * <p>
-     * Note: The returned {@code Stream} will <strong>not</strong> be sorted.
      *
      * @param query the query detailing which {@code Munroes} to return.
      *
-     * @return an unsorted {@code Stream} of {@code Munroes} which match the provided {@code query}
+     * @return an {@code Stream} of {@code Munroes} which match the provided {@code query}
      */
     // This logic is placed here as typically this would be done in DB layer.
     // If this was intended to /always/ be in memory, then more of the logic could fall into the
@@ -81,6 +79,7 @@ public class InMemoryMunroStore implements MunroStore {
 
         return stream;
     }
+
 
 
     private static <I, T> Stream<T> applyIfNotNull(final I item,

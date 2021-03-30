@@ -31,6 +31,7 @@ public class CompositeComparator<T> implements Comparator<T> {
      */
     @Override
     public int compare(final T o1, final T o2) {
+
         int result = 0;
         for (final Comparator<T> comparator : this.comparators) {
             result = comparator.compare(o1, o2);
@@ -39,6 +40,9 @@ public class CompositeComparator<T> implements Comparator<T> {
                 break;
             }
         }
+
+        // If no comparators provided at construction, defaulting to '0' is still fine, as no
+        // sorting is needing to be done.
         return result;
     }
 }

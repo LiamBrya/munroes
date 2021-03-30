@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class RecordSortParserTest {
+class RecordSorterParserTest {
 
     private static final Munro first =
             new Munro("A", GridReference.of("NN111111"), 10.0D, Designation.MUN);
     private static final Munro second =
             new Munro("B", GridReference.of("NN222222"), 20.0D, Designation.TOP);
 
-    private final RecordSortParser parser = new RecordSortParser();
+    private final RecordSorterParser parser = new RecordSorterParser();
 
     @Test
     void testParserParsesName() {

@@ -13,7 +13,7 @@ import java.util.function.Function;
  * Parser for converting a {@code sort} query-parameter into a valid {@link RecordSorter}.
  */
 @Component
-public class RecordSortParser {
+public class RecordSorterParser {
 
     private final Map<String, Function<Munro, Comparable>> propertyFunctionMap;
 

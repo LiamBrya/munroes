@@ -4,6 +4,7 @@ import com.com.munroes.model.Designation;
 import com.com.munroes.model.Munro;
 import lombok.Data;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 
 import javax.validation.constraints.Positive;
 import java.util.Comparator;
@@ -26,15 +27,11 @@ public class MunroQuerySpecification {
             final Set<Designation> types,
             final List<Comparator<Munro>> sorters) {
 
-        if (minHeight != null && maxHeight != null
-                && maxHeight < minHeight) {
-            throw new IllegalArgumentException("Invalid min/max heights");
-        }
-        if ((limit != null && limit <= 0)
-                || (minHeight != null && minHeight <= 0)
-                || (maxHeight != null && maxHeight <= 0)) {
-            throw new IllegalArgumentException("Parameters must be positive");
-        }
+        Assert.isTrue(limit == null || limit > 0, "'limit' must be positive if present");
+        Assert.isTrue(minHeight == null || minHeight > 0, "'minHeight' must be positive if present");
+        Assert.isTrue(maxHeight == null || maxHeight > 0, "'limit' must be positive if present");
+        Assert.isTrue((minHeight == null || maxHeight == null) || minHeight < maxHeight,
+                "Invalid min/max heights: " + minHeight + "/" + maxHeight);
 
         this.limit = limit;
         this.minHeight = minHeight;

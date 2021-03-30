@@ -2,7 +2,7 @@ package com.com.munroes.data.load.config;
 
 import com.com.munroes.data.load.CsvMunroDataLoader;
 import com.com.munroes.data.load.MunroDataLoader;
-import org.springframework.context.ApplicationContextException;
+import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,7 +26,7 @@ public class MunroDataLoadingConfig {
         try {
             return new CsvMunroDataLoader(new File(csvFile.toURI()).toPath());
         } catch (final URISyntaxException | NullPointerException uriSEx) {
-            throw new ApplicationContextException("Failed to find CSV file for munro data", uriSEx);
+            throw new BeanInitializationException("Failed to find CSV file for munro data", uriSEx);
         }
     }
 }
