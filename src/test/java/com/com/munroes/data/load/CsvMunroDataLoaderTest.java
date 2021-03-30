@@ -51,9 +51,9 @@ public class CsvMunroDataLoaderTest {
     @Test
     void testParsedMunroesContainsOneExpected() {
         final Munro expected = new Munro("Meall Ghaordaidh",
-                                         GridReference.of("NN514397"),
-                                         1039.8d,
-                                         Designation.MUN);
+                GridReference.of("NN514397"),
+                1039.8d,
+                Designation.MUN);
 
         Assertions.assertThat(this.munroes).contains(expected);
     }

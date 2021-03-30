@@ -12,8 +12,8 @@ import java.util.Set;
 public interface MunroDataLoader {
 
     /**
-     * Will load this {@link MunroDataLoader MunroDataLoader's} data into the provided
-     * {@link Set} of {@link Munro Munroes}.
+     * Will load this {@link MunroDataLoader MunroDataLoader's} data into the provided {@link Set}
+     * of {@link Munro Munroes}.
      *
      * @param munroes the {@code Set} of {@code Munroes} to load data into.
      */

@@ -36,8 +36,10 @@ class MunroQuerySpecificationMapper {
     MunroQuerySpecification generateQuery(final @RequestParam(required = false) Integer limit,
                                           final @RequestParam(required = false) Double minHeight,
                                           final @RequestParam(required = false) Double maxHeight,
-                                          final @RequestParam(required = false, name = "type") List<String> types,
-                                          final @RequestParam(required = false, name = "sort") List<String> sorts) {
+                                          final @RequestParam(required = false, name = "type")
+                                                  List<String> types,
+                                          final @RequestParam(required = false, name = "sort")
+                                                  List<String> sorts) {
 
         return new MunroQuerySpecification(
                 limit, minHeight, maxHeight, buildTypesSet(types), buildSorters(sorts));
@@ -76,13 +78,13 @@ class MunroQuerySpecificationMapper {
     }
 
     /**
-     * Generates a {@link List} of {@link Comparator Comparators} (for {@link Munro Munroes})
-     * as detailed by the query-parameter(s) for {@code sort-ing} in the request.
+     * Generates a {@link List} of {@link Comparator Comparators} (for {@link Munro Munroes}) as
+     * detailed by the query-parameter(s) for {@code sort-ing} in the request.
      *
      * @param sorterStrings the {@code sort} query-parameter(s) from the request
      *
-     * @return a {@code List} of the requested {@code Comparators}.  The order of these will
-     *         match the order they were specified in the query-parameters.
+     * @return a {@code List} of the requested {@code Comparators}.  The order of these will match
+     * the order they were specified in the query-parameters.
      */
     private List<Comparator<Munro>> buildSorters(final List<String> sorterStrings) {
         if (sorterStrings == null) {

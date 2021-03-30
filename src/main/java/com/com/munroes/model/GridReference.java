@@ -15,7 +15,8 @@ public final class GridReference {
     private GridReference(final String reference) {
         Assert.hasText(reference, "'reference' must not be 'null' or empty");
         Assert.isTrue(reference.matches(REGEX),
-            "The provided reference: '" + reference + "' is not recognised as a valid grid reference");
+                "The provided reference: '" + reference
+                        + "' is not recognised as a valid grid reference");
 
         this.reference = reference;
     }

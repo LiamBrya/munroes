@@ -28,7 +28,7 @@ public class CsvMunroDataLoader implements MunroDataLoader {
 
     public CsvMunroDataLoader(final Path csvFilePath) {
         Assert.isTrue(Files.exists(csvFilePath) && Files.isRegularFile(csvFilePath),
-            "File: '" + csvFilePath + "' not recognised");
+                "File: '" + csvFilePath + "' not recognised");
 
         this.csvFilePath = csvFilePath;
     }

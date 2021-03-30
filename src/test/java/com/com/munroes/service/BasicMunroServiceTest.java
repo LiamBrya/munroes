@@ -8,7 +8,7 @@ import com.com.munroes.model.Munro;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
@@ -24,7 +24,8 @@ public class BasicMunroServiceTest {
 
     @Test
     void testQueryForwardedToStoreUntouched() {
-        final MunroQuerySpecification expected = new MunroQuerySpecification(null, null, null, null, null);
+        final MunroQuerySpecification expected =
+                new MunroQuerySpecification(null, null, null, null, null);
 
         this.service.query(expected);
 
@@ -33,8 +34,9 @@ public class BasicMunroServiceTest {
 
     @Test
     void testResultReturnedFromStoreUntouched() {
-        final List<Munro> expected = Arrays.asList(new Munro("Dave", GridReference.of("NN112233"),
-                                                            200.0D, Designation.MUN));
+        final List<Munro> expected =
+                Collections.singletonList(
+                        new Munro("Dave", GridReference.of("NN112233"), 200.0D, Designation.MUN));
 
         doReturn(expected).when(this.munroStore).query(any());
 

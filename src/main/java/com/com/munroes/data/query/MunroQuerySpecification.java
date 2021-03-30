@@ -23,11 +23,11 @@ public class MunroQuerySpecification {
             final @Positive Integer limit,
             final @Positive Double minHeight,
             final @Positive Double maxHeight,
-            final Set<Designation>types,
+            final Set<Designation> types,
             final List<Comparator<Munro>> sorters) {
 
         if (minHeight != null && maxHeight != null
-            && maxHeight < minHeight) {
+                && maxHeight < minHeight) {
             throw new IllegalArgumentException("Invalid min/max heights");
         }
         if ((limit != null && limit <= 0)
@@ -39,7 +39,7 @@ public class MunroQuerySpecification {
         this.limit = limit;
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
-        this.types = types == null ? null : types;
+        this.types = types;
         this.sorter = sorters == null ? null : new CompositeComparator<>(sorters);
     }
 }

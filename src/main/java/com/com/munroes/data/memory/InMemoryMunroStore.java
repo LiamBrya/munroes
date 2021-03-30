@@ -66,12 +66,12 @@ public class InMemoryMunroStore implements MunroStore {
         Stream<Munro> stream = munroes.stream();
 
         stream = applyIfNotNull(query.getTypes(), stream,
-                       (i, s) -> s.filter(m -> i.contains(m.getDesignation())));
+                (i, s) -> s.filter(m -> i.contains(m.getDesignation())));
 
         stream = applyIfNotNull(query.getMaxHeight(), stream,
-                                (i, s) -> s.filter(m -> m.getHeight() <= i));
+                (i, s) -> s.filter(m -> m.getHeight() <= i));
         stream = applyIfNotNull(query.getMinHeight(), stream,
-                                (i, s) -> s.filter(m -> m.getHeight() >= i));
+                (i, s) -> s.filter(m -> m.getHeight() >= i));
 
         stream = applyIfNotNull(query.getSorter(), stream, (i, s) -> s.sorted(i));
 

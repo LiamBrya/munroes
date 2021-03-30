@@ -24,7 +24,8 @@ public class RecordSortParser {
         localPropertyFunctionMap.put("height", Munro::getHeight);
         localPropertyFunctionMap.put("name", Munro::getName);
         localPropertyFunctionMap.put("category", munro -> munro.getDesignation().toString());
-        localPropertyFunctionMap.put("gridReference", munro -> munro.getGridReference().getReference());
+        localPropertyFunctionMap
+                .put("gridReference", munro -> munro.getGridReference().getReference());
 
         this.propertyFunctionMap = Collections.unmodifiableMap(localPropertyFunctionMap);
     }
@@ -39,14 +40,15 @@ public class RecordSortParser {
         }
 
         return new RecordSorter<>(this.propertyFunctionMap.get(sortDetails.property),
-                                  sortDetails.order);
+                sortDetails.order);
     }
 
 
     /**
      * Helper class for splitting apart a single string into a sort-specification.
      * <p>
-     * Overkill in this case, but allows simple extension, as well as setting per-property defaults.
+     * Overkill in this case, but allows simple extension, as well as setting per-property
+     * defaults.
      */
     private static final class SortDetails {
 

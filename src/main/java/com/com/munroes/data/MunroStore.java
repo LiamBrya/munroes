@@ -13,8 +13,8 @@ import java.util.List;
 public interface MunroStore {
 
     /**
-     * Obtains a {@link List} of {@link Munro Munroes} which match the provided
-     * {@link MunroQuerySpecification query} details.
+     * Obtains a {@link List} of {@link Munro Munroes} which match the provided {@link
+     * MunroQuerySpecification query} details.
      *
      * @param query the {@code query} to be observed
      *

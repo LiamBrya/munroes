@@ -29,7 +29,8 @@ public class MunroController {
 
 
     @GetMapping
-    public List<MunroView> queryMunroes(final @Valid @ModelAttribute MunroQuerySpecification query) {
+    public List<MunroView> queryMunroes(final @Valid @ModelAttribute
+                                                MunroQuerySpecification query) {
 
         final List<MunroView> views =
                 this.service.query(query).stream().map(MunroView::new).collect(Collectors.toList());

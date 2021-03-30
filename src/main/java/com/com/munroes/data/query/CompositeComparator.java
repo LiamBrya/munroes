@@ -10,7 +10,8 @@ import java.util.List;
  * Implementation of {@link Comparator} which defers comparison to the {@link #comparators} provided
  * at construction.
  *
- * @param <T> the type of elements this {@code Comparator} can {@link #compare(Object, Object) compare}
+ * @param <T> the type of elements this {@code Comparator} can {@link #compare(Object, Object)
+ *            compare}
  */
 public class CompositeComparator<T> implements Comparator<T> {
 

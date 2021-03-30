@@ -67,10 +67,10 @@ public class InMemoryMunroStoreTest {
 
         final List<Munro> munroes = this.store.query(
                 new MunroQuerySpecification(null,
-                                            null,
-                                            null,
-                                            Collections.singleton(expectedType),
-                                            null));
+                        null,
+                        null,
+                        Collections.singleton(expectedType),
+                        null));
 
         munroes.forEach(munro -> {
             Assertions.assertEquals(expectedType, munro.getDesignation());
@@ -80,11 +80,11 @@ public class InMemoryMunroStoreTest {
     @Test
     void queryWithHeightSortReturnsAppropriateOrder() {
         final RecordSorter<Munro> heightDescendingSorter = new RecordSorter<>(Munro::getHeight,
-                                                                              SortOrder.DESCENDING);
+                SortOrder.DESCENDING);
 
         final List<Munro> munroes = this.store.query(
                 new MunroQuerySpecification(null, null, null, null,
-                                            Collections.singletonList(heightDescendingSorter)));
+                        Collections.singletonList(heightDescendingSorter)));
 
         // Entering a lambda, so variable needs to be final.
         // Slightly hacky to use a 1-element array for this approach.
@@ -96,7 +96,7 @@ public class InMemoryMunroStoreTest {
 
             // Update the stored 'lastHeight'.
             lastHeight[0] = munro.getHeight();
-                        });
+        });
     }
 
     // This test will need updating if more types are added, logic currently relies on there
@@ -104,9 +104,9 @@ public class InMemoryMunroStoreTest {
     @Test
     void queryWithMultipleSortersReturnsAppropriateOrder() {
         final RecordSorter<Munro> designationSorter = new RecordSorter<>(Munro::getDesignation,
-                                                                         SortOrder.ASCENDING);
+                SortOrder.ASCENDING);
         final RecordSorter<Munro> heightSorter = new RecordSorter<>(Munro::getHeight,
-                                                                    SortOrder.ASCENDING);
+                SortOrder.ASCENDING);
 
         final List<Comparator<Munro>> sorters =
                 Arrays.asList(designationSorter, heightSorter);
