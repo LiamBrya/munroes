@@ -4,6 +4,7 @@ import com.com.munroes.data.query.MunroQuerySpecification;
 import com.com.munroes.service.MunroService;
 import com.com.munroes.view.MunroView;
 import lombok.extern.java.Log;
+import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/api/munroes")
+@RequestMapping(path = "/api/munroes",
+                produces = MediaType.APPLICATION_JSON_VALUE)
 @Log
 public class MunroController {
 
