@@ -24,7 +24,6 @@ dependencies {
 
     compile 'org.apache.commons:commons-csv:1.8'
     compile 'javax.validation:validation-api:2.0.1.Final'
-    compile 'com.google.code.gson:gson:2.8.6'
 
     annotationProcessor 'org.projectlombok:lombok'
 

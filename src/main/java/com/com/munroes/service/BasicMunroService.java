@@ -8,6 +8,10 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
+/**
+ * Very basic implementation of {@link MunroService} which forwards directly to an underlying
+ * {@link MunroStore}.
+ */
 @Service
 public class BasicMunroService implements MunroService {
 

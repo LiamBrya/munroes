@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Simple {@link ControllerAdvice} which maps {@link IllegalArgumentException
+ * IllegalArgumentExceptions} to {@link HttpStatus#BAD_REQUEST 400 BAD REQUEST}.
+ */
 @ControllerAdvice
 @Log
 class MunroControllerExceptionAdapter {

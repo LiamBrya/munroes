@@ -28,6 +28,10 @@ public class InMemoryMunroStore implements MunroStore {
     public InMemoryMunroStore(final MunroDataLoader loader) {
         Assert.notNull(loader, "'loader' must not be 'null'");
 
+        // Could lazy-load these on first query - however at present that is the only purpose of
+        // this service, and doing so would require thread-safety caution to ensure only the
+        // first request does so, and that if there are multiple /first/ requests concurrently,
+        // only one of them does so and the others await the result.
         final Set<Munro> localMunroes = new HashSet<>();
         loader.loadInto(localMunroes);
 
@@ -37,15 +41,9 @@ public class InMemoryMunroStore implements MunroStore {
 
     @Override
     public List<Munro> query(final MunroQuerySpecification query) {
-        final List<Munro> unsortedResult = buildQueryStream(query).collect(Collectors.toList());
+        final List<Munro> result = buildQueryStream(query).collect(Collectors.toList());
 
-        // Reverse order for iteration over sorters.
-        // This gives the highest preference on final order to the sorters earliest in the list.
-        for (int i = query.getSorters().size() - 1; i >= 0; i--) {
-            query.getSorters().get(i).sort(unsortedResult);
-        }
-
-        return Collections.unmodifiableList(unsortedResult);
+        return Collections.unmodifiableList(result);
     }
 
 
@@ -60,7 +58,7 @@ public class InMemoryMunroStore implements MunroStore {
      *
      * @return an unsorted {@code Stream} of {@code Munroes} which match the provided {@code query}
      */
-    // This logic is placed here as typically this would be done in SQL/Hibernate layer.
+    // This logic is placed here as typically this would be done in DB layer.
     // If this was intended to /always/ be in memory, then more of the logic could fall into the
     // query-specification.
     private Stream<Munro> buildQueryStream(final MunroQuerySpecification query) {
@@ -73,6 +71,10 @@ public class InMemoryMunroStore implements MunroStore {
         }
         if (query.getMinHeight() != null) {
             stream = stream.filter(munro -> munro.getHeight() >= query.getMinHeight());
+        }
+
+        for (int i = query.getSorters().size() - 1; i >= 0; i--) {
+            stream = stream.sorted(query.getSorters().get(i));
         }
 
         // Ensure that 'limit' is observed last.  Otherwise fewer results than expected may get

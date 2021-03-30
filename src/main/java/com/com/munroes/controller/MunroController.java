@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/munroes")
+@RequestMapping(path = "/api/munroes")
 @Log
 public class MunroController {
 
@@ -33,7 +33,7 @@ public class MunroController {
         final List<MunroView> views =
                 this.service.query(query).stream().map(MunroView::new).collect(Collectors.toList());
 
-        log.warning("Munroes queried, returning " + views.size() + " results");
+        log.info("Munroes queried, returning " + views.size() + " results");
 
         return views;
     }

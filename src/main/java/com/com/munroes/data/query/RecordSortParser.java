@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Parser for converting a {@code sort} query-parameter into a valid {@link RecordSorter}.
+ */
 @Component
 public class RecordSortParser {
 
@@ -26,15 +29,17 @@ public class RecordSortParser {
         this.propertyFunctionMap = Collections.unmodifiableMap(localPropertyFunctionMap);
     }
 
-    public RecordSort<Munro> parseSortString(final String sortString) {
+    public RecordSorter<Munro> parseSortString(final String sortString) {
         final SortDetails sortDetails = new SortDetails(sortString);
 
         if (!this.propertyFunctionMap.containsKey(sortDetails.property)) {
+            // Not technically an error to try and sort on some non-existent property, it just
+            // has no impact.
             return null;
         }
 
-        return new RecordSort<>(this.propertyFunctionMap.get(sortDetails.property),
-                                sortDetails.order);
+        return new RecordSorter<>(this.propertyFunctionMap.get(sortDetails.property),
+                                  sortDetails.order);
     }
 
 

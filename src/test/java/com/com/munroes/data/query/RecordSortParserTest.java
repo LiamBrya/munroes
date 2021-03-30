@@ -12,20 +12,20 @@ import java.util.List;
 
 class RecordSortParserTest {
 
+    private static final Munro first = new Munro("A", GridReference.of("NN111111"), 10.0D, Designation.MUN);
+    private static final Munro second = new Munro("B", GridReference.of("NN222222"), 20.0D, Designation.TOP);
+
     private final RecordSortParser parser = new RecordSortParser();
 
     @Test
     void testParserParsesName() {
-        final RecordSort<Munro> result = parser.parseSortString("name-ASC");
+        final RecordSorter<Munro> result = parser.parseSortString("name-ASC");
 
         final List<Munro> munroes = new ArrayList<>();
-        final Munro first = new Munro("A", GridReference.of("NN111111"), 10.0D, Designation.MUN);
-        final Munro second = new Munro("B", GridReference.of("NN222222"), 20.0D, Designation.TOP);
-
         // Initially out of order.
         munroes.addAll(Arrays.asList(second, first));
 
-        result.sort(munroes);
+        munroes.sort(result);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, munroes.size()),
@@ -35,16 +35,14 @@ class RecordSortParserTest {
 
     @Test
     public void testParserDefaultsToAscending() {
-        final RecordSort<Munro> result = parser.parseSortString("name");
+        final RecordSorter<Munro> result = parser.parseSortString("name");
 
         final List<Munro> munroes = new ArrayList<>();
-        final Munro first = new Munro("A", GridReference.of("NN111111"), 10.0D, Designation.MUN);
-        final Munro second = new Munro("B", GridReference.of("NN222222"), 20.0D, Designation.TOP);
 
         // Initially out of order.
         munroes.addAll(Arrays.asList(second, first));
 
-        result.sort(munroes);
+        munroes.sort(result);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, munroes.size()),
@@ -54,16 +52,14 @@ class RecordSortParserTest {
 
     @Test
     public void testParserHandlesHeight() {
-        final RecordSort<Munro> result = parser.parseSortString("height-des");
+        final RecordSorter<Munro> result = parser.parseSortString("height-des");
 
         final List<Munro> munroes = new ArrayList<>();
-        final Munro first = new Munro("A", GridReference.of("NN111111"), 10.0D, Designation.MUN);
-        final Munro second = new Munro("B", GridReference.of("NN222222"), 20.0D, Designation.TOP);
 
         // Descending sort, so expected order is now second, first.
         munroes.addAll(Arrays.asList(first, second));
 
-        result.sort(munroes);
+        munroes.sort(result);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, munroes.size()),

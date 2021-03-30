@@ -9,7 +9,7 @@ part of the interview process for xDesign.
 
 #### URI:
 
-`GET /munroes`
+`GET /api/munroes`
 
 #### Query Parameters
 
@@ -37,6 +37,9 @@ Examples:
 * `?sort=name`
 * `?sort=name-DES`
 * `?sort=height-DES&sort=name`
+
+Note: Spring supports mapping multi-value query parameters as comma-separated lists so this should work, however 
+details in the RFC dictate that isn't the intended way of doing this.
 
 #### Response
 

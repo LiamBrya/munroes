@@ -5,6 +5,8 @@ import com.com.munroes.model.Munro;
 import lombok.Data;
 
 import javax.validation.constraints.Positive;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,14 +17,14 @@ public class MunroQuerySpecification {
     private final @Positive Double minHeight;
     private final @Positive Double maxHeight;
     private final Set<Designation> types;
-    private final List<RecordSort<Munro>> sorters;
+    private final List<RecordSorter<Munro>>sorters;
 
     public MunroQuerySpecification(
-            final @Positive Integer limit,
-            final @Positive Double minHeight,
-            final @Positive Double maxHeight,
-            final Set<Designation> types,
-            final List<RecordSort<Munro>> sorters) {
+            final@Positive Integer limit,
+            final@Positive Double minHeight,
+            final@Positive Double maxHeight,
+            final Set<Designation>types,
+            final List<RecordSorter<Munro>>sorters) {
 
         if (minHeight != null && maxHeight != null
             && maxHeight < minHeight) {
@@ -37,7 +39,7 @@ public class MunroQuerySpecification {
         this.limit = limit;
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
-        this.types = types;
-        this.sorters = sorters;
+        this.types = types != null ? types : EnumSet.allOf(Designation.class);
+        this.sorters = sorters != null ? sorters : Collections.emptyList();
     }
 }

@@ -18,6 +18,10 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Implementation of {@link MunroDataLoader} which reads values from a csv file provided at
+ * construction.
+ */
 public class CsvMunroDataLoader implements MunroDataLoader {
 
     private final Path csvFilePath;
@@ -63,9 +67,17 @@ public class CsvMunroDataLoader implements MunroDataLoader {
         }
     }
 
+    /**
+     * Parses the given {@link CSVRecord} into a {@link Munro}.
+     *
+     * @param record the {@code CSVRecord} to be parsed
+     *
+     * @return the parsed {@code Munro}, or {@code null} if the record is deemed invalid.
+     */
     private static @Nullable Munro parse(final CSVRecord record) {
         final String designationString = record.get(RelevantColumns.DESIGNATION);
         if (!StringUtils.hasText(designationString)) {
+            // Post 1997 this was no longer deemed a munro/top, so skip it.
             return null;
         }
 
